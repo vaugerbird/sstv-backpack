@@ -2026,6 +2026,16 @@
 	)
 	(wire
 		(pts
+			(xy 102.87 53.34) (xy 102.87 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2916d237-50f2-42ee-971c-14b51fb39851")
+	)
+	(wire
+		(pts
 			(xy 148.59 68.58) (xy 148.59 69.85)
 		)
 		(stroke
@@ -2043,6 +2053,16 @@
 			(type default)
 		)
 		(uuid "3d5e46d7-14e5-4ac1-8ea8-73b63a979a83")
+	)
+	(wire
+		(pts
+			(xy 102.87 50.8) (xy 115.57 50.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "497a00ce-fe81-49a7-9720-af5cc4ae8347")
 	)
 	(wire
 		(pts
@@ -2106,16 +2126,6 @@
 	)
 	(wire
 		(pts
-			(xy 143.51 120.65) (xy 157.48 120.65)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "b718f0dd-0157-423c-b4a2-552e8688a16b")
-	)
-	(wire
-		(pts
 			(xy 143.51 125.73) (xy 165.1 125.73)
 		)
 		(stroke
@@ -2126,13 +2136,13 @@
 	)
 	(wire
 		(pts
-			(xy 102.87 50.8) (xy 115.57 50.8)
+			(xy 143.51 120.65) (xy 157.48 120.65)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "dd6a7a7a-e0b1-4739-919d-f112d39cde12")
+		(uuid "daaaf161-1c0b-431d-b690-18fdd7968a69")
 	)
 	(wire
 		(pts
@@ -2142,17 +2152,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "deee8df7-357f-48b4-a6df-0e2b8879c8ca")
-	)
-	(wire
-		(pts
-			(xy 102.87 53.34) (xy 102.87 69.85)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "df5175de-76c6-46d8-a78b-50439f7e8694")
+		(uuid "e4b950b8-eca2-4076-8550-334da9a30298")
 	)
 	(wire
 		(pts
@@ -2443,7 +2443,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "1feb6548-ffe5-4e75-97b1-4047a025c2e9")
-		(property "Reference" "U2"
+		(property "Reference" "VR1"
 			(at 163.83 53.34 0)
 			(effects
 				(font
@@ -2498,7 +2498,7 @@
 		(instances
 			(project ""
 				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
-					(reference "U2")
+					(reference "VR1")
 					(unit 1)
 				)
 			)
@@ -2571,16 +2571,16 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x02_Pin")
-		(at 97.79 50.8 0)
+		(at 97.79 53.34 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "3b70ffe4-6359-48fd-aaa5-6a05b705e87b")
-		(property "Reference" "J2"
-			(at 98.425 45.72 0)
+		(property "Reference" "BAT_IN"
+			(at 98.425 58.42 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2588,7 +2588,7 @@
 			)
 		)
 		(property "Value" "Conn_01x02_Pin"
-			(at 98.425 48.26 0)
+			(at 98.425 55.88 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2596,7 +2596,7 @@
 			)
 		)
 		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
-			(at 97.79 50.8 0)
+			(at 97.79 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2605,7 +2605,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 97.79 50.8 0)
+			(at 97.79 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2614,7 +2614,7 @@
 			)
 		)
 		(property "Description" "Generic connector, single row, 01x02, script generated"
-			(at 97.79 50.8 0)
+			(at 97.79 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2631,7 +2631,7 @@
 		(instances
 			(project ""
 				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
-					(reference "J2")
+					(reference "BAT_IN")
 					(unit 1)
 				)
 			)
@@ -3087,7 +3087,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "bea0a370-1f84-4fb8-8993-f8ffbb55e3ca")
+			(uuid "bea0a370-1f84-4fb8-8993-f8ffbb55e3cb")
 		)
 		(instances
 			(project ""
@@ -3356,7 +3356,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "229e06a6-e21a-4a81-9a7c-5fa62d9c99fd")
+			(uuid "229e06a6-e21a-4a81-9a7c-5fa62d9c99fe")
 		)
 		(instances
 			(project ""
@@ -3369,16 +3369,16 @@
 	)
 	(symbol
 		(lib_id "Connector:Conn_01x03_Pin")
-		(at 162.56 118.11 180)
+		(at 162.56 118.11 0)
+		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "db165f5e-2e1b-45db-b8bb-64c9c149ae18")
 		(property "Reference" "J1"
-			(at 163.83 116.8399 0)
+			(at 163.83 119.3801 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3387,7 +3387,7 @@
 			)
 		)
 		(property "Value" "Conn_01x03_Pin"
-			(at 163.83 119.3799 0)
+			(at 163.83 116.8401 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3496,7 +3496,7 @@
 			)
 		)
 		(pin "1"
-			(uuid "bea0a370-1f84-4fb8-8993-f8ffbb55e3ca")
+			(uuid "bea0a370-1f84-4fb8-8993-f8ffbb55e3cc")
 		)
 		(instances
 			(project ""
