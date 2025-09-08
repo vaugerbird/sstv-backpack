@@ -21,8 +21,8 @@ int lastBtnState = 0;
 
 int start = 0;
 
-String overlayTextTop = "PMR";    // Upper left, white
-String overlayTextBottom = "SSTV"; // Lower right, black
+String overlayTextTop = "W7PBC";    // Upper left, white
+String overlayTextBottom = "TESTING"; // Lower right, black
 
 volatile uint32_t FTW = FTOFTW * 1000;
 volatile uint32_t PCW = 0;
@@ -81,6 +81,7 @@ class SSTV_config_t {
 };
 
 camera_fb_t* fb;
+
 SSTV_config_t* currentSSTV;
 
 volatile uint16_t rasterX = 0;
@@ -289,7 +290,13 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
 }
 
 void doImage() {
-  camera_fb_t *fb = NULL;
+  camera_fb_t* fb = nullptr;
+  // Skip first N frames.
+  for (int i = 0; i < 3; i++) {
+    fb = esp_camera_fb_get();
+    esp_camera_fb_return(fb);
+    fb = nullptr;
+  }
   delay(1000);
   fb = esp_camera_fb_get();
   delay(1000);
@@ -354,11 +361,11 @@ void setup() {
 
   setupCamera();
 
-  pinMode(capt_btn, INPUT);
+  pinMode(capt_btn, INPUT_PULLUP);
   pinMode(led_flash, OUTPUT);
   pinMode(led_red, OUTPUT);
   pinMode(ptt_pin, OUTPUT); // Configure PTT as output
-  pinMode(buzz_pin, OUTPUT)
+  pinMode(buzz, OUTPUT);
   digitalWrite(led_flash, LOW);
   digitalWrite(led_red, HIGH);
   digitalWrite(ptt_pin, HIGH); // PTT inactive at startup
@@ -392,15 +399,16 @@ void setup() {
 void loop() {
   btnState = digitalRead(capt_btn);
   lastBtnState = btnState;
-  if (btnState == 1) {
-    tone(buzz, 500, 50);
-    tone(buzz, 440, 50);
+  if (btnState == 0) {
+    tone(buzz, 500, 100);
+    tone(buzz, 440, 100);
     doImage();
-    tone(buzz, 440, 50);
-    tone(buzz, 480, 50);
-    tone(buzz, 480, 50);
+    tone(buzz, 440, 100);
+    tone(buzz, 480, 100);
+    tone(buzz, 500, 100);
   } else {
-    btnState = 0;
+    btnState = 1;
+    lastBtnState = btnState;
   }
 
 }

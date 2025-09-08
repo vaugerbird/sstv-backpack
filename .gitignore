@@ -29,12 +29,12 @@ fp-info-cache
 *.dsn
 *.ses
 
-# Exported BOM files
-*.xml
-*.csv
-
 # Archived Backups (KiCad 6.0)
 **/*-backups/*.zip
 
 # Local project settings
 *.kicad_prl
+
+# Inventor backup files
+**/OldVersions/**
+

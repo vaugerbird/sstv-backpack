@@ -91,20 +91,18 @@ void setupCamera()
     return;
   }
   sensor_t * s = esp_camera_sensor_get();
-  //Estos parametros son para funcionar en exterior con mucha luz 8252N V2.0.
-  //Si quieres trabajar en interior puedes comentar todas las lineas abajo
-  s->set_gain_ctrl(s, 0);                 // Desactiva auto gain
-  s->set_agc_gain(s, 0);                  // Ajuste manual  (ANTES1)
-  s->set_exposure_ctrl(s, 0);             // Desactiva auto exposure
-  s->set_aec_value(s, 0);               // Prueba con este valor y ajusta
-  s->set_whitebal(s, 0);                // Desactiva auto balance de blancos
-  s->set_awb_gain(s, 0);                // Desactiva AWB gain
-  s->set_denoise(s, 1);                 // Activa reducción de ruido si quieres
-  s->set_wb_mode(s, 0);                 // Balance blanco neutro
-  s->set_brightness(s, 0);
+  s->set_gain_ctrl(s, 1);                 
+  s->set_agc_gain(s, 0);                
+  s->set_exposure_ctrl(s, 1);             
+  s->set_aec_value(s, 0);               
+  s->set_whitebal(s, 1);                
+  s->set_awb_gain(s, 1);                
+  s->set_denoise(s, 1);                 
+  s->set_wb_mode(s, 0);                 
+  s->set_brightness(s, 1);
   s->set_contrast(s, 0);
-  s->set_vflip(s, 1);
-  s->set_hmirror(s, 1);
+  s->set_vflip(s, 0);
+  s->set_hmirror(s, 0);
   
   //initial sensors are flipped vertically and colors are a bit saturated
   if (s->id.PID == OV3660_PID) {
