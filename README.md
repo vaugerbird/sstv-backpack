@@ -1,9 +1,9 @@
 # sstv-backpack
 ## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others!
 
-<img src="./img/radio.jpg" height="300">
-<img src="./img/sstv1.jpg" height="300">
-<img src="./img/sstv2.jpg" height="300">
+<img align="center" src="./img/radio.jpg" width="300">
+<img align="center" src="./img/sstv1.jpg" width="300">
+<img align="center" src="./img/sstv2.jpg" width="300">
 
 ## Hardware Revisions
 I currently have 2 hardware revisions available, with a 3rd planned: 
@@ -41,7 +41,7 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 
 3. Change the text options on lines 24 and 25 to reflect your callsign and desired splash text.
 
-4. All the board settings can be left alone except for selecting the correct COMM port.
+4. All the board settings can be left alone except for selecting the correct COM port.
 
 5. Upload the code!
 
