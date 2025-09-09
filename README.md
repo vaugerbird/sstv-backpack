@@ -35,11 +35,14 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 5. After you have the hardware assembled, the next thing to do is upload the code!
 
 ## Programming Instructions
-1. Ensure that you have this link added to the 3rd party boards section of the Arduino IDE: https://dl.espressif.com/dl/package_esp32_index.json
+1. Ensure that you have this link added to the 3rd party boards section of the Arduino IDE:
+```
+https://dl.espressif.com/dl/package_esp32_index.json
+```
 
 2. From the board manager, install version **2.0.17** of the ESP32 board definitions. Any newer version will throw compilation errors.
 
-3. Change the text options on lines 24 and 25 to reflect your callsign and desired splash text.
+3. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
 
 4. All the board settings can be left alone except for selecting the correct COM port.
 
