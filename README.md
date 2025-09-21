@@ -18,8 +18,7 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 3. v1.2 (PLANNED):
     * Switch to an entirely top-mounted SMD design, while still being hand-solderable
     * Retain all features of the v1.1 board
-    * Pogo pins for power will be mounted on the board
-    * Switch to USB-C instead of USB Mini-B  
+    * Pogo pins for power will be mounted on the board 
 
 ## Assembly Instructions
 1. Upload your desired [Gerber](./hardware/gerbers/) file to your desired PCB manufacturer. I used OSHPark, but JLCPCB or PCBWay are good manufacturers too.

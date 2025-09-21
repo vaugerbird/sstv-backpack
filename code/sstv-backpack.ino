@@ -21,8 +21,8 @@ int lastBtnState = 0;
 
 int start = 0;
 
-String overlayTextTop = "W7PBC";    // Upper left, white
-String overlayTextBottom = "TESTING"; // Lower right, black
+String overlayTextTop = "CALLSIGN HERE";    // Upper left, white
+String overlayTextBottom = "SUBTEXT HERE"; // Lower right, black
 
 volatile uint32_t FTW = FTOFTW * 1000;
 volatile uint32_t PCW = 0;
