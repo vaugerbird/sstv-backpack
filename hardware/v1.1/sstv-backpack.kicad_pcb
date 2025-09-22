@@ -81,7 +81,7 @@
 			(mirror no)
 			(drillshape 0)
 			(scaleselection 1)
-			(outputdirectory "gerber/")
+			(outputdirectory "gerbers/")
 		)
 	)
 	(net 0 "")
@@ -7337,7 +7337,7 @@
 		)
 	)
 	(gr_text "By Preston - W7PBC"
-		(at 173.8376 114.8588 0)
+		(at 176.7332 112.6744 0)
 		(layer "B.SilkS")
 		(uuid "1c63c69f-c0b1-40e3-bfa7-008035a4f6bb")
 		(effects
@@ -7363,7 +7363,7 @@
 		)
 	)
 	(gr_text "github.com/vaugerbird/\nsstv-backpack"
-		(at 164.211 119.761 0)
+		(at 159.3596 118.9736 0)
 		(layer "B.SilkS")
 		(uuid "52cbf368-44ae-4b26-9f9c-def298fe35ee")
 		(effects
@@ -7388,7 +7388,7 @@
 		)
 	)
 	(gr_text "SSTV Backpack"
-		(at 174.4472 112.6744 0)
+		(at 176.8348 109.982 0)
 		(layer "B.SilkS")
 		(uuid "ad8cb743-638e-44fb-b837-85287599e70b")
 		(effects
@@ -7409,6 +7409,19 @@
 				(thickness 0.15)
 			)
 			(justify mirror)
+		)
+	)
+	(gr_text "v1.1"
+		(at 176.7332 115.316 0)
+		(layer "B.SilkS")
+		(uuid "ff0b4186-9270-4804-9cbd-a37ac536dd6f")
+		(effects
+			(font
+				(size 1.27 1.27)
+				(thickness 0.254)
+				(bold yes)
+			)
+			(justify left bottom mirror)
 		)
 	)
 	(segment
