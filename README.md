@@ -15,8 +15,8 @@ I currently have 2 hardware revisions available, with a 3rd planned:
     * Still mostly through-hole and hand-solderable, albeit with some fine-pitch components like the FTDI chip
     * Retains all the same functionality of v1.0, but adds an FTDI USB-to-Serial chip for flashing and a serial monitor.
     * The board is quite cramped and may be hard to work with
-3. v1.2 (PLANNED):
-    * Switch to an entirely top-mounted SMD design, while still being hand-solderable
+3. v1.2 (WIP):
+    * Switch to an mostly top-mounted SMD design, while still being hand-solderable
     * Retain all features of the v1.1 board
     * Pogo pins for power will be mounted on the board 
 
@@ -27,7 +27,7 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 
 3. Once all parts arrive, assemble the board. There isn't much of a technique to it, just start with the lowest profile parts first like the diodes, resistors, and chips, and work your way up.
 
-4. Once the board is complete, print the case using one of the included [STLs](./hardware/case). Currently, the Baofeng UV-5R is the only supported radio, but the Inventor (2025) files are included and help with additional radio models is always appreciated!
+4. Once the board is complete, print the case using one of the included [STLs](./hardware/case). Currently, the Baofeng UV-5R is the only supported radio, but the Inventor 2025 and STEP files are included, and help with additional radio models is always appreciated!
 
     * I used the standard settings (0.2mm) on my print, with supports on, and the case interior facing the build plate.
 
@@ -41,11 +41,13 @@ https://dl.espressif.com/dl/package_esp32_index.json
 
 2. From the board manager, install version **2.0.17** of the ESP32 board definitions. Any newer version will throw compilation errors.
 
-3. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
+3. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
 
-4. All the board settings can be left alone except for selecting the correct COM port.
+4. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
 
-5. Upload the code!
+5. All the board settings can be left alone except for selecting the correct COM port.
+
+6. Upload the code!
 
 ## Licensing
 * The [main program](./code/sstv-backpack.ino) and [supporting libraries](./code/) are licensed as CC BY-NC-SA 4.0 and are based on the program/libraries from [desafioinventor](https://www.instructables.com/SSTV-Capsule-V2-for-High-Altitude-Balloons/) on Instructables. 
