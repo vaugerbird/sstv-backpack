@@ -5726,7 +5726,7 @@
 				)
 			)
 		)
-		(property "Value" "4.7k"
+		(property "Value" "10k"
 			(at 214.376 89.408 90)
 			(effects
 				(font
@@ -6849,7 +6849,6 @@
 	(symbol
 		(lib_id "Device:D")
 		(at 177.8 125.73 0)
-		(mirror y)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7350,7 +7349,8 @@
 	)
 	(symbol
 		(lib_id "Device:D")
-		(at 177.8 138.43 180)
+		(at 177.8 138.43 0)
+		(mirror x)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -7358,7 +7358,7 @@
 		(dnp no)
 		(uuid "fda785f2-186e-4c12-bfb8-a4229f64f730")
 		(property "Reference" "D4"
-			(at 174.498 143.002 0)
+			(at 174.752 142.748 0)
 			(effects
 				(font
 					(size 1.27 1.27)

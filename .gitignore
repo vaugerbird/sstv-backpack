@@ -38,3 +38,5 @@ fp-info-cache
 # Inventor backup files
 **/OldVersions/**
 
+# Temp gerber directories
+**/hardware/v1.*/gerbers/
