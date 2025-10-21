@@ -95,6 +95,7 @@ void setupCamera()
   s->set_quality(s, 10);      // jpeg quality, 0-63 (10 to prevent out of buffer hang)
   s->set_gain_ctrl(s, 1);     // sensor automatic gain control 1.on 0.off
   //s->set_agc_gain(s, 0);      // manual agc (if sensor automatic gain control is off) values are 0-30
+  //s->set_gainceiling(s, (gainceiling_t)32); // play with the maximum roof that agc can reach (0 to 64) 
   s->set_exposure_ctrl(s, 1); // auto exposure control 1.on 0.off
   s->set_aec2(s ,1);          // increased auto exposure algo 1.on 0.off
   s->set_ae_level(s, 2);      // exposure compensation -2/+2
