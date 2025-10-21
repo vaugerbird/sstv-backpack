@@ -360,7 +360,7 @@ void doImage() {
   digitalWrite(PTT_PIN, HIGH);
 
   esp_camera_fb_return(fb);
-  digitalWrite(SPEAKER_OUT, LOW);
+  digitalWrite(SPEAKER_OUTPUT, LOW);
   delay(10000);
 
   // Free the buffer after use
