@@ -107,7 +107,7 @@ void setupCamera()
   //************************
   s->set_denoise(s, 0);       // denoise filter 1.on 0.off (warning, loss of details in low light)                
   s->set_lenc(s, 1);          // lens correction 1.on 0.off
-  s->set_raw_gma(s, 0);       // gamma correction over raw image 1.on 0.off
+  s->set_raw_gma(s, 1);       // gamma correction over raw image 1.on 0.off
   s->set_wpc(s, 1);           // wide pixel correction 1.on           
   //************************
   s->set_brightness(s, 0);    // range -2 / 2
@@ -136,7 +136,7 @@ void setupCamera()
   
   // **Altri parametri**
   s->set_lenc(s, 1);            // Correzione lente attiva
-  s->set_raw_gma(s, 0);         // Gamma correction disattivata (per evitare rumore aggiuntivo)
+  s->set_raw_gma(s, 1);         // Gamma correction attivata (crea rumore aggiuntivo, ma altrimenti immagine troppo scura)
   s->set_wpc(s, 1);             // Wide pixel correction attiva
   
   s->set_brightness(s, 1);      // Mantiene un leggero aumento di luminosità
