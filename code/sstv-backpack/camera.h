@@ -42,20 +42,20 @@ void setupCamera()
   config.pin_pclk = PCLK_GPIO_NUM;
   config.pin_vsync = VSYNC_GPIO_NUM;
   config.pin_href = HREF_GPIO_NUM;
-  config.pin_sscb_sda = SIOD_GPIO_NUM;
-  config.pin_sscb_scl = SIOC_GPIO_NUM;
+  config.pin_sccb_sda = SIOD_GPIO_NUM;
+  config.pin_sccb_scl = SIOC_GPIO_NUM;
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
-    config.pixel_format = PIXFORMAT_JPEG;
-  //  config.pixel_format = PIXFORMAT_RGB565;
+  config.pixel_format = PIXFORMAT_JPEG;
+  //config.pixel_format = PIXFORMAT_RGB565;
   //config.pixel_format = PIXFORMAT_RGB888;
   //config.pixel_format = PIXFORMAT_GRAYSCALE;
   //init with high specs to pre-allocate larger buffers
   //config.frame_size = FRAMESIZE_QQVGA;
   config.frame_size = FRAMESIZE_QVGA;//320x240
   config.fb_count = 1;
-    config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
+  config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
   config.fb_location = CAMERA_FB_IN_PSRAM;
   config.jpeg_quality = 12;
   config.fb_count = 1;
@@ -78,8 +78,59 @@ void setupCamera()
     config.fb_count = 1;
     }
   */
-
-
+/*
+if (!strcmp(variable, "framesize")) {
+    if (s->pixformat == PIXFORMAT_JPEG) {
+      res = s->set_framesize(s, (framesize_t)val);
+    }
+  } else if (!strcmp(variable, "quality")) {
+    res = s->set_quality(s, val);
+  } else if (!strcmp(variable, "contrast")) {
+    res = s->set_contrast(s, val);
+  } else if (!strcmp(variable, "brightness")) {
+    res = s->set_brightness(s, val);
+  } else if (!strcmp(variable, "saturation")) {
+    res = s->set_saturation(s, val);
+  } else if (!strcmp(variable, "gainceiling")) {
+    res = s->set_gainceiling(s, (gainceiling_t)val);
+  } else if (!strcmp(variable, "colorbar")) {
+    res = s->set_colorbar(s, val);
+  } else if (!strcmp(variable, "awb")) {
+    res = s->set_whitebal(s, val);
+  } else if (!strcmp(variable, "agc")) {
+    res = s->set_gain_ctrl(s, val);
+  } else if (!strcmp(variable, "aec")) {
+    res = s->set_exposure_ctrl(s, val);
+  } else if (!strcmp(variable, "hmirror")) {
+    res = s->set_hmirror(s, val);
+  } else if (!strcmp(variable, "vflip")) {
+    res = s->set_vflip(s, val);
+  } else if (!strcmp(variable, "awb_gain")) {
+    res = s->set_awb_gain(s, val);
+  } else if (!strcmp(variable, "agc_gain")) {
+    res = s->set_agc_gain(s, val);
+  } else if (!strcmp(variable, "aec_value")) {
+    res = s->set_aec_value(s, val);
+  } else if (!strcmp(variable, "aec2")) {
+    res = s->set_aec2(s, val);
+  } else if (!strcmp(variable, "dcw")) {
+    res = s->set_dcw(s, val);
+  } else if (!strcmp(variable, "bpc")) {
+    res = s->set_bpc(s, val);
+  } else if (!strcmp(variable, "wpc")) {
+    res = s->set_wpc(s, val);
+  } else if (!strcmp(variable, "raw_gma")) {
+    res = s->set_raw_gma(s, val);
+  } else if (!strcmp(variable, "lenc")) {
+    res = s->set_lenc(s, val);
+  } else if (!strcmp(variable, "special_effect")) {
+    res = s->set_special_effect(s, val);
+  } else if (!strcmp(variable, "wb_mode")) {
+    res = s->set_wb_mode(s, val);
+  } else if (!strcmp(variable, "ae_level")) {
+    res = s->set_ae_level(s, val);
+  }
+ */
 #if defined(CAMERA_MODEL_ESP_EYE)
   pinMode(13, INPUT_PULLUP);
   pinMode(14, INPUT_PULLUP);
@@ -91,20 +142,20 @@ void setupCamera()
     return;
   }
   sensor_t * s = esp_camera_sensor_get();
-  s->set_gain_ctrl(s, 1);                 
-  s->set_agc_gain(s, 0);                
-  s->set_exposure_ctrl(s, 1);             
-  s->set_aec_value(s, 0);               
-  s->set_whitebal(s, 1);                
-  s->set_awb_gain(s, 1);                
-  s->set_denoise(s, 1);                 
-  s->set_wb_mode(s, 0);                 
-  s->set_brightness(s, 1);
-  s->set_contrast(s, 0);
-  s->set_vflip(s, 0);
-  s->set_hmirror(s, 0);
+  
+  //***********************
+  // camera sensor settings
+  //***********************
+  
+    s->set_quality(s, 5);   // from 0 to 63, but it doesn't work if value is under 5 (almost for my experience...)
+    //s->set_gain_ctrl(s, 1);
+    //s->set_ae_level(s, 0);
+    //s->set_brightness(s, 2);
+    //s->set_contrast(s, 1);
+    //s->set_sharpness(s, 3);
   
   //initial sensors are flipped vertically and colors are a bit saturated
+
   if (s->id.PID == OV3660_PID) {
     s->set_vflip(s, 1);//flip it back
     s->set_brightness(s, 1);//up the blightness just a bit
