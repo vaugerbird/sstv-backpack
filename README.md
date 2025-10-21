@@ -40,7 +40,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
 ```
 
 2. From the board manager, install version **2.0.17** of the ESP32 board definitions. Any newer version will throw compilation errors.
-3. **UPGRADE** : now you can compile the source code in ArduinoCore V3.0.7+ without errors, i've used this one and it works very well, i dont'know if it still works in newer version than 3.0.7, but i think so,one of the greatest (fixed) problem was the timer management, i don't think timers are changed in V3.0.7+ core...
+3. **UPGRADE** : now you can compile the source code in ArduinoCore **V3.0.7+** without errors, i've used this one and it works very well,a friend of mine have compiled with ArduinoCore **V3.3.2** and it works even better, due the timers upgrade in newer SDK. Timers have less jitter than before, and this obviously result in a better precision in the delicate tone output process. With V3.3.2 seems that MMSSTV produce correct images without autoslant! (anyway, this is what my friend told me...)
 
 4. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
 
