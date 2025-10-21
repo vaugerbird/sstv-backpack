@@ -1,6 +1,7 @@
 #include <driver/ledc.h>
 #include "camera.h"
 #include "sin256.h"
+#include "esp_task_wdt.h"
 
 #define BELL202_BAUD 1200
 #define F_SAMPLE ((BELL202_BAUD * 32) * 0.93) // ≈ 35712 Hz
@@ -9,12 +10,13 @@
 #define uS_TO_S_FACTOR 1000000
 #define TIME_TO_SLEEP  5
 
-#define led_flash 4
-#define led_red 33
-#define speaker_output 14
-#define ptt_pin 15 // Pin for PTT (LOW = GND = active)
-#define buzz 13 // Pin for indication buzzer
-#define capt_btn 12 // Pin for button to activate capture
+#define LED_FLASH 4
+#define LED_RED 33
+#define SPEAKER_OUT 14
+#define PTT_PIN 15      // Pin for PTT (LOW = GND = active)
+#define BUZZER_PIN 13   // Pin for indication buzzer
+#define CAPT_BTN 12     // Pin for button to activate capture
+#define USE_FLASH       // use the onboard high intensity white led as flash
 
 int btnState = 0; 
 int lastBtnState = 0;
@@ -73,7 +75,7 @@ class SSTV_config_t {
           width = 320; height = 240;
           line_time = 446.4460001; h_sync_time = 30.0; v_sync_time = 4.862;
           c_sync_time = 0.572; left_margin_time = 0.0;
-          visible_pixels_time = line_time - v_sync_time - left_margin_time - (3 * c_sync_time);
+          visible_pixels_time = line_time - v_sync_time - left_margin_time - (2 * c_sync_time);
           pixel_time = visible_pixels_time / (width * 3);
           break;
       }
@@ -245,9 +247,9 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
                 int pixel_y = y_start_top + (y * 2) + dy;
                 if (pixel_x < width && pixel_y < height) {
                   int index = (pixel_y * width + pixel_x) * 3;
-                  rgb_buf[index + 0] = top_color_r;
+                  rgb_buf[index + 0] = top_color_b;
                   rgb_buf[index + 1] = top_color_g;
-                  rgb_buf[index + 2] = top_color_b;
+                  rgb_buf[index + 2] = top_color_r;
                 }
               }
             }
@@ -276,9 +278,9 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
                 int pixel_y = y_start_bottom + (y * 2) + dy;
                 if (pixel_x < width && pixel_y < height && pixel_x >= 0) {
                   int index = (pixel_y * width + pixel_x) * 3;
-                  rgb_buf[index + 0] = bottom_color_r;
+                  rgb_buf[index + 0] = bottom_color_b;
                   rgb_buf[index + 1] = bottom_color_g;
-                  rgb_buf[index + 2] = bottom_color_b;
+                  rgb_buf[index + 2] = bottom_color_r;
                 }
               }
             }
@@ -297,9 +299,19 @@ void doImage() {
     esp_camera_fb_return(fb);
     fb = nullptr;
   }
+  
   delay(1000);
+  #ifdef USE_FLASH 
+    digitalWrite(LED_FLASH,HIGH);
+  #endif
+  
   fb = esp_camera_fb_get();
+
+  #ifdef USE_FLASH 
+    digitalWrite(LED_FLASH,LOW);
+  #endif
   delay(1000);
+  
   if (!fb) {
     Serial.println("Camera capture failed");
     return;
@@ -318,7 +330,6 @@ void doImage() {
   }
   if (!rgb_buf) {
     Serial.println("RGB buff allocation failed");
-    esp_camera_fb_return(fb);
     return;
   }
 
@@ -331,7 +342,7 @@ void doImage() {
 
   // Activate PTT (LOW = GND)
   Serial.println(" - Activating PTT");
-  digitalWrite(ptt_pin, LOW);
+  digitalWrite(PTT_PIN, LOW);
 
   SSTVtime = 0; SSTVnext = 0; SSTVseq = 0; SSTV_RUNNING = true;
   vTaskResume(sampleHandlerHandle);
@@ -339,15 +350,17 @@ void doImage() {
     Serial.print(".");
     delay(1000);
   }
+  esp_task_wdt_reset();
+  enableCore0WDT();
   vTaskSuspend(sampleHandlerHandle);
   Serial.println("Ok.123");
 
   // Deactivate PTT (HIGH = inactive)
   Serial.println(" - Deactivating PTT");
-  digitalWrite(ptt_pin, HIGH);
+  digitalWrite(PTT_PIN, HIGH);
 
   esp_camera_fb_return(fb);
-  digitalWrite(speaker_output, LOW);
+  digitalWrite(SPEAKER_OUT, LOW);
   delay(10000);
 
   // Free the buffer after use
@@ -361,20 +374,19 @@ void setup() {
 
   setupCamera();
 
-  pinMode(capt_btn, INPUT_PULLUP);
-  pinMode(led_flash, OUTPUT);
-  pinMode(led_red, OUTPUT);
-  pinMode(ptt_pin, OUTPUT); // Configure PTT as output
-  pinMode(buzz, OUTPUT);
-  digitalWrite(led_flash, LOW);
-  digitalWrite(led_red, HIGH);
-  digitalWrite(ptt_pin, HIGH); // PTT inactive at startup
+  pinMode(CAPT_BTN, INPUT_PULLUP);
+  pinMode(LED_FLASH, OUTPUT);
+  pinMode(LED_RED, OUTPUT);
+  pinMode(PTT_PIN, OUTPUT); // Configure PTT as output
+  pinMode(BUZZER_PIN, OUTPUT);
+  digitalWrite(LED_FLASH, LOW);
+  digitalWrite(LED_RED, HIGH);
+  digitalWrite(PTT_PIN, HIGH); // PTT inactive at startup
 
   hw_timer_t *timer = NULL;
-  timer = timerBegin(2, 10, true);
-  timerAttachInterrupt(timer, &audioISR, true);
-  timerAlarmWrite(timer, 8000000 / F_SAMPLE, true);
-  timerAlarmEnable(timer);
+  timer = timerBegin(10000000);
+  timerAttachInterrupt(timer, &audioISR);
+  timerAlarm(timer, 10000000 / F_SAMPLE, true, 0);
 
   ledc_timer_config_t ledc_timer;
   ledc_timer.speed_mode = LEDC_HIGH_SPEED_MODE;
@@ -385,7 +397,7 @@ void setup() {
 
   ledc_channel_config_t ledc_channel;
   ledc_channel.channel = LEDC_CHANNEL_3;
-  ledc_channel.gpio_num = speaker_output;
+  ledc_channel.gpio_num = SPEAKER_OUT;
   ledc_channel.speed_mode = LEDC_HIGH_SPEED_MODE;
   ledc_channel.timer_sel = LEDC_TIMER_1;
   ledc_channel.duty = 2;
@@ -397,15 +409,15 @@ void setup() {
 }
 
 void loop() {
-  btnState = digitalRead(capt_btn);
+  btnState = digitalRead(CAPT_BTN);
   lastBtnState = btnState;
   if (btnState == 0) {
-    tone(buzz, 500, 100);
-    tone(buzz, 440, 100);
+    tone(BUZZER_PIN, 500, 100);
+    tone(BUZZER_PIN, 440, 100);
     doImage();
-    tone(buzz, 440, 100);
-    tone(buzz, 480, 100);
-    tone(buzz, 500, 100);
+    tone(BUZZER_PIN, 440, 100);
+    tone(BUZZER_PIN, 480, 100);
+    tone(BUZZER_PIN, 500, 100);
   } else {
     btnState = 1;
     lastBtnState = btnState;
