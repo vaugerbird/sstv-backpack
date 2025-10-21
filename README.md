@@ -1,6 +1,5 @@
 # sstv-backpack
-## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others!
-## (now fixed for ArduinoCore V3.0.7+)
+## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others! (now fixed for ArduinoCore V3.0.7+)
 
 <img align="center" src="./img/radio.jpg" width="300">
 <img align="center" src="./img/sstv1.jpg" width="300">
