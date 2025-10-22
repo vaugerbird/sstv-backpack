@@ -90,63 +90,33 @@ void setupCamera()
     return;
   }
   sensor_t * s = esp_camera_sensor_get();
-/*  
-  // **Optimized camera settings - DAYLIGHT**
-  s->set_quality(s, 10);      // jpeg quality, 0-63 (10 to prevent out of buffer hang)
-  s->set_gain_ctrl(s, 1);     // sensor automatic gain control 1.on 0.off
-  //s->set_agc_gain(s, 0);      // manual agc (if sensor automatic gain control is off) values are 0-30
-  //s->set_gainceiling(s, (gainceiling_t)32); // play with the maximum roof that agc can reach (0 to 64) 
-  s->set_exposure_ctrl(s, 1); // auto exposure control 1.on 0.off
-  s->set_aec2(s ,1);          // increased auto exposure algo 1.on 0.off
-  s->set_ae_level(s, 2);      // exposure compensation -2/+2
-  //s->set_aec_value(s, 0);     // if set_exposure_ctrl is 0 use this parameter for manual exposure (0-1200)
-  //************************
-  s->set_whitebal(s, 1);      // enable automatic white balance 1.on 0.off       
-  s->set_awb_gain(s, 1);      // automatic white balance gain 1.on 0.off                
-  s->set_wb_mode(s, 0);       // manual white balance, modes are 0.auto,1.sunny,2.cloudy,3.office,4.home
-  //************************
-  s->set_denoise(s, 0);       // denoise filter 1.on 0.off (warning, loss of details in low light)                
-  s->set_lenc(s, 1);          // lens correction 1.on 0.off
-  s->set_raw_gma(s, 1);       // gamma correction over raw image 1.on 0.off
-  s->set_wpc(s, 1);           // wide pixel correction 1.on           
-  //************************
-  s->set_brightness(s, 0);    // range -2 / 2
-  s->set_contrast(s, 2);      // range -2 / 2
-  s->set_saturation(s, -2);   // range -2 / 2
-  //************************
-  s->set_vflip(s, 0);         // image vertical flip 1.on 0.off
-  s->set_hmirror(s, 0);       // image horizontal mirror 1.om 0.off
-  //s->set_special_effect(s, 6); //2.black&white 1.negative 6.sepia
-*/
-  // **Optimized camera settings - HOME**
-  s->set_gain_ctrl(s, 1);       // Mantiene il controllo automatico del guadagno (AGC)
-  s->set_exposure_ctrl(s, 1);   // Mantiene il controllo automatico dell'esposizione (AEC)
-  s->set_aec2(s, 1);            // Mantiene l'algoritmo AEC avanzato
-  s->set_ae_level(s, 2);        // Aumenta l'esposizione al massimo (+2) per schiarire l'immagine
-  s->set_gainceiling(s, (gainceiling_t)64); // **Nuovo:** Aumenta il tetto massimo del guadagno automatico a 64x (valore massimo)
   
-  // **Impostazioni di qualità e rumore bilanciate**
-  s->set_quality(s, 15);        // **Modificato:** Abbassa leggermente la qualità per ridurre il carico sul processore, utile per la stabilità in bassa luce.
-  s->set_denoise(s, 1);         // **Modificato:** Abilita la riduzione del rumore per le basse luci.
+  // General settings *STANDARD*
+  s->set_quality(s, 10);          // 0-63, lower is higher quality. Start at 16 for a balance of file size and quality.
+  s->set_contrast(s, 0);          // -2 to 2, 0 is default
+  s->set_brightness(s, 0);        // -2 to 2, 0 is default
+  s->set_saturation(s, 0);        // -2 to 2, 0 is default
+  s->set_special_effect(s, 0);    // 0 = No Effect
   
-  // **Impostazioni di bilanciamento del bianco**
-  s->set_whitebal(s, 1);        // Mantiene il bilanciamento automatico del bianco (AWB)
-  s->set_awb_gain(s, 1);        // Mantiene il guadagno automatico dell'AWB
-  s->set_wb_mode(s, 0);         // Modalità automatica per il bilanciamento del bianco
+  // White balance
+  s->set_whitebal(s, 1);          // 1 = enable AWB
+  s->set_awb_gain(s, 1);          // 1 = enable AWB gain control
+  s->set_wb_mode(s, 0);           // 0 = Auto white balance
   
-  // **Altri parametri**
-  s->set_lenc(s, 1);            // Correzione lente attiva
-  s->set_raw_gma(s, 1);         // Gamma correction attivata (crea rumore aggiuntivo, ma altrimenti immagine troppo scura)
-  s->set_wpc(s, 1);             // Wide pixel correction attiva
+  // Exposure and gain control
+  s->set_exposure_ctrl(s, 1);     // 1 = enable auto exposure control (AEC)
+  s->set_aec2(s, 0);              // 0 = disable AEC2 (reduces banding)
+  s->set_ae_level(s, 0);          // -2 to 2, 0 is default
+  s->set_aec_value(s, 300);       // Auto exposure value. Can be set manually if AEC is off.
+  s->set_gain_ctrl(s, 1);         // 1 = enable auto gain control (AGC)
+  s->set_agc_gain(s, 0);          // 0 = auto gain value. Can be set manually if AGC is off.
+  s->set_gainceiling(s, (gainceiling_t)4); // 4 = 16x gain. Adjust as needed.
   
-  s->set_brightness(s, 1);      // Mantiene un leggero aumento di luminosità
-  s->set_contrast(s, 1);        // Mantiene un leggero aumento di contrasto
-  s->set_saturation(s, -1);     // Mantiene una leggera riduzione della saturazione
-  
-  s->set_vflip(s, 0);           // Flip verticale disattivo
-  s->set_hmirror(s, 0);         // Mirror orizzontale disattivo
-
-
+  // Other adjustments
+  s->set_lenc(s, 1);              // 1 = enable lens correction (LENC)
+  s->set_bpc(s, 1);               // 1 = enable black pixel correction (BPC)
+  s->set_wpc(s, 1);               // 1 = enable white pixel correction (WPC)
+  s->set_raw_gma(s, 1);           // 1 = enable gamma correction
   
   //initial sensors are flipped vertically and colors are a bit saturated
   if (s->id.PID == OV3660_PID) {
