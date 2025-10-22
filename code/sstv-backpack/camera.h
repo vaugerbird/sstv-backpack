@@ -47,17 +47,17 @@ void setupCamera()
   config.pin_pwdn = PWDN_GPIO_NUM;
   config.pin_reset = RESET_GPIO_NUM;
   config.xclk_freq_hz = 20000000;
-    config.pixel_format = PIXFORMAT_JPEG;
-  //  config.pixel_format = PIXFORMAT_RGB565;
+  config.pixel_format = PIXFORMAT_JPEG;
+  //config.pixel_format = PIXFORMAT_RGB565;
   //config.pixel_format = PIXFORMAT_RGB888;
   //config.pixel_format = PIXFORMAT_GRAYSCALE;
   //init with high specs to pre-allocate larger buffers
   //config.frame_size = FRAMESIZE_QQVGA;
   config.frame_size = FRAMESIZE_QVGA;//320x240
   config.fb_count = 1;
-    config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
+  config.grab_mode = CAMERA_GRAB_WHEN_EMPTY;
   config.fb_location = CAMERA_FB_IN_PSRAM;
-  config.jpeg_quality = 12;
+  config.jpeg_quality = 10; // 10.best 63.worst
   config.fb_count = 1;
 /*
   if (psramFound()) {
@@ -79,7 +79,6 @@ void setupCamera()
     }
   */
 
-
 #if defined(CAMERA_MODEL_ESP_EYE)
   pinMode(13, INPUT_PULLUP);
   pinMode(14, INPUT_PULLUP);
@@ -91,18 +90,33 @@ void setupCamera()
     return;
   }
   sensor_t * s = esp_camera_sensor_get();
-  s->set_gain_ctrl(s, 1);                 
-  s->set_agc_gain(s, 0);                
-  s->set_exposure_ctrl(s, 1);             
-  s->set_aec_value(s, 0);               
-  s->set_whitebal(s, 1);                
-  s->set_awb_gain(s, 1);                
-  s->set_denoise(s, 1);                 
-  s->set_wb_mode(s, 0);                 
-  s->set_brightness(s, 1);
-  s->set_contrast(s, 0);
-  s->set_vflip(s, 0);
-  s->set_hmirror(s, 0);
+  
+  // General settings *STANDARD*
+  s->set_quality(s, 10);          // 0-63, lower is higher quality. Start at 16 for a balance of file size and quality.
+  s->set_contrast(s, 0);          // -2 to 2, 0 is default
+  s->set_brightness(s, 0);        // -2 to 2, 0 is default
+  s->set_saturation(s, 0);        // -2 to 2, 0 is default
+  s->set_special_effect(s, 0);    // 0 = No Effect
+  
+  // White balance
+  s->set_whitebal(s, 1);          // 1 = enable AWB
+  s->set_awb_gain(s, 1);          // 1 = enable AWB gain control
+  s->set_wb_mode(s, 0);           // 0 = Auto white balance
+  
+  // Exposure and gain control
+  s->set_exposure_ctrl(s, 1);     // 1 = enable auto exposure control (AEC)
+  s->set_aec2(s, 0);              // 0 = disable AEC2 (reduces banding)
+  s->set_ae_level(s, 0);          // -2 to 2, 0 is default
+  s->set_aec_value(s, 300);       // Auto exposure value. Can be set manually if AEC is off.
+  s->set_gain_ctrl(s, 1);         // 1 = enable auto gain control (AGC)
+  s->set_agc_gain(s, 0);          // 0 = auto gain value. Can be set manually if AGC is off.
+  s->set_gainceiling(s, (gainceiling_t)4); // 4 = 16x gain. Adjust as needed.
+  
+  // Other adjustments
+  s->set_lenc(s, 1);              // 1 = enable lens correction (LENC)
+  s->set_bpc(s, 1);               // 1 = enable black pixel correction (BPC)
+  s->set_wpc(s, 1);               // 1 = enable white pixel correction (WPC)
+  s->set_raw_gma(s, 1);           // 1 = enable gamma correction
   
   //initial sensors are flipped vertically and colors are a bit saturated
   if (s->id.PID == OV3660_PID) {

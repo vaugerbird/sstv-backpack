@@ -1,5 +1,5 @@
 # sstv-backpack
-## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others!
+## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others! (now fixed for ArduinoCore V3.0.7+)
 
 <img align="center" src="./img/radio.jpg" width="300">
 <img align="center" src="./img/sstv1.jpg" width="300">
@@ -40,14 +40,17 @@ https://dl.espressif.com/dl/package_esp32_index.json
 ```
 
 2. From the board manager, install version **2.0.17** of the ESP32 board definitions. Any newer version will throw compilation errors.
+3. **UPGRADE** : now you can compile the source code in ArduinoCore **V3.0.7+** without errors, i've used this one and it works very well,a friend of mine have compiled with ArduinoCore **V3.3.2** and it works even better, due the timers upgrade in newer SDK. Timers have less jitter than before, and this obviously result in a better precision in the delicate tone output process. With V3.3.2 seems that MMSSTV produce correct images without autoslant! (anyway, this is what my friend told me...)
 
-3. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
+4. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
 
-4. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
+5. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
+6. **UPGRADE** : comment out the #define USE_FLASH if you don't want this function (high intensity white led on when framegrabbing)
+7. **UPGRADE** : inside "camera.h" file now you can choose between two profiles, DAYLIGHT and HOME, feel free to modify settings to best suit your case. Keep in mind that this cheap sensor struggle a lot in poor light scenario, so don't expect a picture like your Fujifilm camera...anyway,for the task it has to perform is more than enough i think.
 
-5. All the board settings can be left alone except for selecting the correct COM port.
+8. All the board settings can be left alone except for selecting the correct COM port.
 
-6. Upload the code!
+9. Upload the code!
 
 ## Licensing
 * The [main program](./code/sstv-backpack.ino) and [supporting libraries](./code/) are licensed as CC BY-NC-SA 4.0 and are based on the program/libraries from [desafioinventor](https://www.instructables.com/SSTV-Capsule-V2-for-High-Altitude-Balloons/) on Instructables. 
