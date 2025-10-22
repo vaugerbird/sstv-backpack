@@ -361,6 +361,7 @@ void doImage() {
 
   esp_camera_fb_return(fb);
   digitalWrite(SPEAKER_OUTPUT, LOW);
+  ledc_stop(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3, 0); // this to really "shutup" the pin
   delay(10000);
 
   // Free the buffer after use
