@@ -18,6 +18,16 @@
 #define CAPT_BTN 12     // Pin for button to activate capture
 #define USE_FLASH       // use the onboard high intensity white led as flash
 
+// TOP STRING COLOR (default cyan, the most readable)
+#define TOP_R  255
+#define TOP_G  0
+#define TOP_B  255
+
+// BOTTOM STRING COLOR (default cyan, the most readable)
+#define BTM_R  255
+#define BTM_G  0
+#define BTM_B  255
+
 int btnState = 0; 
 int lastBtnState = 0;
 
@@ -231,7 +241,6 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
   int x_start_top = 10;
   int y_start_top = 10;
   int text_top_len = strlen(text_top);
-  uint8_t top_color_r = 255, top_color_g = 0, top_color_b = 0;
 
   for (int c = 0; c < text_top_len; c++) {
     int char_index = -1;
@@ -247,9 +256,9 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
                 int pixel_y = y_start_top + (y * 2) + dy;
                 if (pixel_x < width && pixel_y < height) {
                   int index = (pixel_y * width + pixel_x) * 3;
-                  rgb_buf[index + 0] = top_color_b;
-                  rgb_buf[index + 1] = top_color_g;
-                  rgb_buf[index + 2] = top_color_r;
+                  rgb_buf[index + 0] = TOP_B;
+                  rgb_buf[index + 1] = TOP_G;
+                  rgb_buf[index + 2] = TOP_R;
                 }
               }
             }
@@ -262,7 +271,6 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
   int text_bottom_len = strlen(text_bottom);
   int x_start_bottom = width - (text_bottom_len * (char_width + spacing)) - 10;
   int y_start_bottom = height - char_height - 10;
-  uint8_t bottom_color_r = 0, bottom_color_g = 0, bottom_color_b = 255;
 
   for (int c = 0; c < text_bottom_len; c++) {
     int char_index = -1;
@@ -278,9 +286,9 @@ void drawText(uint8_t *rgb_buf, uint16_t width, uint16_t height, const char *tex
                 int pixel_y = y_start_bottom + (y * 2) + dy;
                 if (pixel_x < width && pixel_y < height && pixel_x >= 0) {
                   int index = (pixel_y * width + pixel_x) * 3;
-                  rgb_buf[index + 0] = bottom_color_b;
-                  rgb_buf[index + 1] = bottom_color_g;
-                  rgb_buf[index + 2] = bottom_color_r;
+                  rgb_buf[index + 0] = BTM_B;
+                  rgb_buf[index + 1] = BTM_G;
+                  rgb_buf[index + 2] = BTM_R;
                 }
               }
             }
