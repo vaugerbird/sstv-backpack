@@ -35,6 +35,7 @@ I currently have 2 hardware revisions available, with a 3rd planned:
         * 4 - M3 brass het set inserts
         * 4 - M3 x 6mm screws (preferably hex head)
         * 4 - M2 x 4mm screws
+        * 1 - Radio cable (I just cut the end off of a cheap Baofeng speaker-mic, it was cheaper than using an unterminated cable.)
 
 5. After you have the hardware assembled, the next thing to do is upload the code!
 
