@@ -13,10 +13,10 @@
 #define LED_FLASH 4
 #define LED_RED 33
 #define SPEAKER_OUT 14
-#define PTT_PIN 15      // Pin for PTT (LOW = GND = active)
+#define PTT_PIN 15      // Pin for PTT (HIGH = active)
 #define BUZZER_PIN 13   // Pin for indication buzzer
 #define CAPT_BTN 12     // Pin for button to activate capture
-#define USE_FLASH       // use the onboard high intensity white led as flash
+//#define USE_FLASH     // Uncomment to use the onboard high intensity white LED as flash
 
 // TOP STRING COLOR (default cyan, the most readable)
 #define TOP_R  255
@@ -348,9 +348,9 @@ void doImage() {
   currentSSTV = new SSTV_config_t(44);
   Serial.print("Sending image");
 
-  // Activate PTT (LOW = GND)
+  // Activate PTT
   Serial.println(" - Activating PTT");
-  digitalWrite(PTT_PIN, LOW);
+  digitalWrite(PTT_PIN, HIGH);
 
   SSTVtime = 0; SSTVnext = 0; SSTVseq = 0; SSTV_RUNNING = true;
   vTaskResume(sampleHandlerHandle);
@@ -363,9 +363,9 @@ void doImage() {
   vTaskSuspend(sampleHandlerHandle);
   Serial.println("Ok.123");
 
-  // Deactivate PTT (HIGH = inactive)
+  // Deactivate PTT (LOW = inactive)
   Serial.println(" - Deactivating PTT");
-  digitalWrite(PTT_PIN, HIGH);
+  digitalWrite(PTT_PIN, LOW);
 
   esp_camera_fb_return(fb);
   digitalWrite(SPEAKER_OUTPUT, LOW);
@@ -390,7 +390,7 @@ void setup() {
   pinMode(BUZZER_PIN, OUTPUT);
   digitalWrite(LED_FLASH, LOW);
   digitalWrite(LED_RED, HIGH);
-  digitalWrite(PTT_PIN, HIGH); // PTT inactive at startup
+  digitalWrite(PTT_PIN, LOW); // PTT inactive at startup
 
   hw_timer_t *timer = NULL;
   timer = timerBegin(10000000);
