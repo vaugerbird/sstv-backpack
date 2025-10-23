@@ -46,7 +46,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
 
 5. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
 6. **UPGRADE** : comment out the #define USE_FLASH if you don't want this function (high intensity white led on when framegrabbing)
-7. **UPGRADE** : inside "camera.h" file now you can choose between two profiles, DAYLIGHT and HOME, feel free to modify settings to best suit your case. Keep in mind that this cheap sensor struggle a lot in poor light scenario, so don't expect a picture like your Fujifilm camera...anyway,for the task it has to perform is more than enough i think.
+7. **UPGRADE** : inside "camera.h" file you can tweak parameters, feel free to modify settings to best suit your case. Keep in mind that this cheap sensor struggle a lot in poor light scenario, so don't expect a picture like your Fujifilm camera...anyway,for the task it has to perform is more than enough i think. A quick search online can lead you towards the proper settings values you need.
 
 8. All the board settings can be left alone except for selecting the correct COM port.
 
