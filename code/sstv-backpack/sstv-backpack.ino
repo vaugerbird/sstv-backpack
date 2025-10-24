@@ -125,8 +125,7 @@ void sampleHandler(void *p) {
     if (TFLAG) {
       TFLAG = 0;
       int v = SinTableH[((uint8_t*)&PCW)[3]];
-      ledc_set_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3, v);
-      ledc_update_duty(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3);
+      ledcWrite(SPEAKER_OUTPUT, v); // modulate the selected pin in PWM
       SSTVtime += TIME_PER_SAMPLE;
       if (!SSTV_RUNNING || SSTVtime < SSTVnext) continue;
 
@@ -368,8 +367,7 @@ void doImage() {
   digitalWrite(PTT_PIN, LOW);
 
   esp_camera_fb_return(fb);
-  digitalWrite(SPEAKER_OUTPUT, LOW);
-  ledc_stop(LEDC_HIGH_SPEED_MODE, LEDC_CHANNEL_3, 0); // this to really "shutup" the pin
+  ledcDetach(SPEAKER_OUTPUT); // this to really "shutup" the pin
   delay(10000);
 
   // Free the buffer after use
@@ -397,21 +395,7 @@ void setup() {
   timerAttachInterrupt(timer, &audioISR);
   timerAlarm(timer, 10000000 / F_SAMPLE, true, 0);
 
-  ledc_timer_config_t ledc_timer;
-  ledc_timer.speed_mode = LEDC_HIGH_SPEED_MODE;
-  ledc_timer.duty_resolution = LEDC_TIMER_8_BIT;
-  ledc_timer.timer_num = LEDC_TIMER_1;
-  ledc_timer.freq_hz = 200000;
-  ledc_timer_config(&ledc_timer);
-
-  ledc_channel_config_t ledc_channel;
-  ledc_channel.channel = LEDC_CHANNEL_3;
-  ledc_channel.gpio_num = SPEAKER_OUT;
-  ledc_channel.speed_mode = LEDC_HIGH_SPEED_MODE;
-  ledc_channel.timer_sel = LEDC_TIMER_1;
-  ledc_channel.duty = 2;
-  ledc_channel.hpoint = 0;
-  ledc_channel_config(&ledc_channel);
+  ledcAttach(SPEAKER_OUTPUT, 200000, LEDC_TIMER_8_BIT);
 
   xTaskCreatePinnedToCore(sampleHandler, "IN", 4096, NULL, 1, &sampleHandlerHandle, 0);
   vTaskSuspend(sampleHandlerHandle);
