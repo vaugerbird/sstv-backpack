@@ -19,13 +19,13 @@
 //#define USE_FLASH     // Uncomment to use the onboard high intensity white LED as flash
 
 // TOP STRING COLOR (default cyan, the most readable)
-#define TOP_R  255
-#define TOP_G  0
+#define TOP_R  0
+#define TOP_G  255
 #define TOP_B  255
 
 // BOTTOM STRING COLOR (default cyan, the most readable)
-#define BTM_R  255
-#define BTM_G  0
+#define BTM_R  0
+#define BTM_G  255
 #define BTM_B  255
 
 int btnState = 0; 
