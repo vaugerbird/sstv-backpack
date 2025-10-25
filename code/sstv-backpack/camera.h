@@ -117,6 +117,34 @@ void setupCamera()
   s->set_bpc(s, 1);               // 1 = enable black pixel correction (BPC)
   s->set_wpc(s, 1);               // 1 = enable white pixel correction (WPC)
   s->set_raw_gma(s, 1);           // 1 = enable gamma correction
+/*
+ // General settings *OUTDOOR*
+  s->set_quality(s, 10);          // 0-63, lower is higher quality. Start at 16 for a balance of file size and quality.
+  s->set_contrast(s, 0);          // -2 to 2, 0 is default
+  s->set_brightness(s, 0);        // -2 to 2, 0 is default
+  s->set_saturation(s, 1);        // -2 to 2, 0 is default
+  s->set_special_effect(s, 0);    // 0 = No Effect
+  
+  // White balance
+  s->set_whitebal(s, 1);          // 1 = enable AWB
+  s->set_awb_gain(s, 1);          // 1 = enable AWB gain control
+  s->set_wb_mode(s, 0);           // 0 = Auto white balance
+  
+  // Exposure and gain control
+  s->set_exposure_ctrl(s, 0);     // 1 = enable auto exposure control (AEC)
+  s->set_aec2(s, 0);              // 0 = disable AEC2 (reduces banding)
+  s->set_ae_level(s, 0);          // -2 to 2, 0 is default
+  s->set_aec_value(s, 12);       // Auto exposure value. Can be set manually if AEC is off.
+  s->set_gain_ctrl(s, 0);         // 1 = enable auto gain control (AGC)
+  s->set_agc_gain(s, 0);          // 0 = auto gain value. Can be set manually if AGC is off.
+  s->set_gainceiling(s, (gainceiling_t)4); // 4 = 16x gain. Adjust as needed.
+  
+  // Other adjustments
+  s->set_lenc(s, 1);              // 1 = enable lens correction (LENC)
+  s->set_bpc(s, 1);               // 1 = enable black pixel correction (BPC)
+  s->set_wpc(s, 1);               // 1 = enable white pixel correction (WPC)
+  s->set_raw_gma(s, 1);           // 1 = enable gamma correction
+*/
   
   //initial sensors are flipped vertically and colors are a bit saturated
   if (s->id.PID == OV3660_PID) {
