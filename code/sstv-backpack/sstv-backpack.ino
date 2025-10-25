@@ -12,7 +12,7 @@
 
 #define LED_FLASH 4
 #define LED_RED 33
-#define SPEAKER_OUT 14
+#define SPEAKER_OUTPUT 14
 #define PTT_PIN 15      // Pin for PTT (HIGH = active)
 #define BUZZER_PIN 13   // Pin for indication buzzer
 #define CAPT_BTN 12     // Pin for button to activate capture
