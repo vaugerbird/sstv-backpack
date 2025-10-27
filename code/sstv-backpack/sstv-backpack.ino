@@ -368,7 +368,6 @@ void doImage() {
 
   esp_camera_fb_return(fb);
   ledcDetach(SPEAKER_OUTPUT); // this to really "shutup" the pin
-  delay(10000);
 
   // Free the buffer after use
   free(rgb_buf);
