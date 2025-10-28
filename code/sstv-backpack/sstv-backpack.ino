@@ -2,20 +2,21 @@
 #include "camera.h"
 #include "sin256.h"
 #include "esp_task_wdt.h"
+#include "driver/rtc_io.h"
 
-#define BELL202_BAUD 1200
-#define F_SAMPLE ((BELL202_BAUD * 32) * 0.93) // ≈ 35712 Hz
-#define FTOFTW (4294967295 / F_SAMPLE)
-#define TIME_PER_SAMPLE (1000.0/F_SAMPLE)
-#define uS_TO_S_FACTOR 1000000
-#define TIME_TO_SLEEP  5
+#define BELL202_BAUD     1200
+#define F_SAMPLE         ((BELL202_BAUD * 32) * 0.93) // ≈ 35712 Hz
+#define FTOFTW           (4294967295 / F_SAMPLE)
+#define TIME_PER_SAMPLE  (1000.0/F_SAMPLE)
+#define uS_TO_S_FACTOR   1000000
+#define TIME_TO_SLEEP    5
 
-#define LED_FLASH 4
-#define LED_RED 33
-#define SPEAKER_OUTPUT 14
-#define PTT_PIN 15      // Pin for PTT (HIGH = active)
-#define BUZZER_PIN 13   // Pin for indication buzzer
-#define CAPT_BTN 12     // Pin for button to activate capture
+#define LED_FLASH       4
+#define LED_RED         33
+#define SPEAKER_OUTPUT  14
+#define PTT_PIN         15      // Pin for PTT (HIGH = active)
+#define BUZZER_PIN      13   // Pin for indication buzzer
+#define CAPT_BTN        GPIO_NUM_12     // Pin for button to activate capture
 //#define USE_FLASH     // Uncomment to use the onboard high intensity white LED as flash
 
 // TOP STRING COLOR (default cyan, the most readable)
@@ -28,8 +29,7 @@
 #define BTM_G  0
 #define BTM_B  255
 
-int btnState = 0; 
-int lastBtnState = 0;
+bool capt_frame = false;
 
 int start = 0;
 
@@ -117,6 +117,34 @@ TaskHandle_t sampleHandlerHandle;
 void IRAM_ATTR audioISR() {
   PCW += FTW;
   TFLAG = 1;
+}
+
+/*******************************************************
+ * FUNCTION: print_wakeup_reason
+ * DESCRIPTION: Prints the cause of the ESP32 waking up
+ * from Deep Sleep (Timer, external signal, etc.) to the serial monitor.
+ * INPUT: None
+ * OUTPUT: None
+ *******************************************************/
+void print_wakeup_reason(){
+  esp_sleep_wakeup_cause_t wakeup_reason;
+
+  wakeup_reason = esp_sleep_get_wakeup_cause();
+
+  switch(wakeup_reason)
+  {
+    case ESP_SLEEP_WAKEUP_EXT0 : 
+      {
+        Serial.println("Wakeup caused by external signal using RTC_IO");
+        capt_frame = true;
+      }
+      break;
+    case ESP_SLEEP_WAKEUP_EXT1 : Serial.println("Wakeup caused by external signal using RTC_CNTL"); break;
+    case ESP_SLEEP_WAKEUP_TIMER : Serial.println("Wakeup caused by timer"); break;
+    case ESP_SLEEP_WAKEUP_TOUCHPAD : Serial.println("Wakeup caused by touchpad"); break;
+    case ESP_SLEEP_WAKEUP_ULP : Serial.println("Wakeup caused by ULP program"); break;
+    default : Serial.printf("Wakeup was not caused by deep sleep: %d\n",wakeup_reason); break;
+  }
 }
 
 void sampleHandler(void *p) {
@@ -378,41 +406,45 @@ void setup() {
   Serial.begin(115200);
   delay(1000);
 
-  setupCamera();
+  //Print the wakeup reason for ESP32
+  print_wakeup_reason();
 
-  pinMode(CAPT_BTN, INPUT_PULLUP);
-  pinMode(LED_FLASH, OUTPUT);
-  pinMode(LED_RED, OUTPUT);
-  pinMode(PTT_PIN, OUTPUT); // Configure PTT as output
-  pinMode(BUZZER_PIN, OUTPUT);
-  digitalWrite(LED_FLASH, LOW);
-  digitalWrite(LED_RED, HIGH);
-  digitalWrite(PTT_PIN, LOW); // PTT inactive at startup
+  if (capt_frame) {
+    setupCamera();
 
-  hw_timer_t *timer = NULL;
-  timer = timerBegin(10000000);
-  timerAttachInterrupt(timer, &audioISR);
-  timerAlarm(timer, 10000000 / F_SAMPLE, true, 0);
-
-  ledcAttach(SPEAKER_OUTPUT, 200000, LEDC_TIMER_8_BIT);
-
-  xTaskCreatePinnedToCore(sampleHandler, "IN", 4096, NULL, 1, &sampleHandlerHandle, 0);
-  vTaskSuspend(sampleHandlerHandle);
-}
-
-void loop() {
-  btnState = digitalRead(CAPT_BTN);
-  lastBtnState = btnState;
-  if (btnState == 0) {
-    tone(BUZZER_PIN, 500, 100);
-    tone(BUZZER_PIN, 440, 100);
+    //pinMode(CAPT_BTN, INPUT_PULLUP);
+    pinMode(LED_FLASH, OUTPUT);
+    pinMode(LED_RED, OUTPUT);
+    pinMode(PTT_PIN, OUTPUT); // Configure PTT as output
+    pinMode(BUZZER_PIN, OUTPUT);
+    digitalWrite(LED_FLASH, LOW);
+    digitalWrite(LED_RED, HIGH);
+    digitalWrite(PTT_PIN, LOW); // PTT inactive at startup
+  
+    hw_timer_t *timer = NULL;
+    timer = timerBegin(10000000);
+    timerAttachInterrupt(timer, &audioISR);
+    timerAlarm(timer, 10000000 / F_SAMPLE, true, 0);
+  
+    ledcAttach(SPEAKER_OUTPUT, 200000, LEDC_TIMER_8_BIT);
+  
+    xTaskCreatePinnedToCore(sampleHandler, "IN", 4096, NULL, 1, &sampleHandlerHandle, 0);
+    vTaskSuspend(sampleHandlerHandle);
     doImage();
-    tone(BUZZER_PIN, 440, 100);
-    tone(BUZZER_PIN, 480, 100);
-    tone(BUZZER_PIN, 500, 100);
-  } else {
-    btnState = 1;
-    lastBtnState = btnState;
+    capt_frame = false;
   }
 
+  esp_sleep_enable_ext0_wakeup(CAPT_BTN, 1);  //1 = High, 0 = Low
+  // Configure pullup/downs via RTCIO to tie wakeup pins to inactive level during deepsleep.
+  // EXT0 resides in the same power domain (RTC_PERIPH) as the RTC IO pullup/downs.
+  // No need to keep that power domain explicitly, unlike EXT1.
+  rtc_gpio_pullup_dis(CAPT_BTN);
+  rtc_gpio_pulldown_en(CAPT_BTN);
+  
+  //Go to sleep now
+  Serial.println("Going to sleep now");
+  esp_deep_sleep_start();
+  
 }
+
+void loop() {}
