@@ -53,6 +53,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
     * The color of the top and bottom text can be changed with the definitions in lines 22-29. 
 
 5. Uncomment line 19 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
+6. **UPGRADE** : set 1=high or 0=low properly at line 347 to reflect your CAPT_BTN wiring (GND or +3.3V)
 
 5. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
 6. **UPGRADE** : comment out the #define USE_FLASH if you don't want this function (high intensity white led on when framegrabbing)
@@ -66,6 +67,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
  A huge thank you to contributors to this project! I'm pretty bad with code so all help is greatly appreciated!
 
  * [IU5HKU / Marco](https://github.com/IU5HKU) - Updated the code to work with the newest version of the ESP32 board definition and improved the readability/useability of the code!
+ * [IU5HKU / Marco](https://github.com/IU5HKU) - Updated the code to work with deepsleep/wakeup ESP32 funcs (maximize battery life).
 
 ## Licensing
 * The [main program](./code/sstv-backpack.ino) and [supporting libraries](./code/) are licensed as CC BY-NC-SA 4.0 and are based on the program/libraries from [desafioinventor](https://www.instructables.com/SSTV-Capsule-V2-for-High-Altitude-Balloons/) on Instructables. 
