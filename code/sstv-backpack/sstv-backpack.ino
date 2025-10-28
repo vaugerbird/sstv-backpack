@@ -1,15 +1,16 @@
 #include <driver/ledc.h>
 #include "camera.h"
 #include "sin256.h"
-#include "esp_task_wdt.h"
-#include "driver/rtc_io.h"
+#include <esp_task_wdt.h>
+#include <driver/rtc_io.h>
+#include <WiFi.h>
 
-#define BELL202_BAUD     1200
-#define F_SAMPLE         ((BELL202_BAUD * 32) * 0.93) // ≈ 35712 Hz
-#define FTOFTW           (4294967295 / F_SAMPLE)
-#define TIME_PER_SAMPLE  (1000.0/F_SAMPLE)
-#define uS_TO_S_FACTOR   1000000
-#define TIME_TO_SLEEP    5
+#define BELL202_BAUD 1200
+#define F_SAMPLE ((BELL202_BAUD * 32) * 0.93) // ≈ 35712 Hz
+#define FTOFTW (4294967295 / F_SAMPLE)
+#define TIME_PER_SAMPLE (1000.0/F_SAMPLE)
+#define uS_TO_S_FACTOR 1000000
+#define TIME_TO_SLEEP  5
 
 #define LED_FLASH       4
 #define LED_RED         33
@@ -405,6 +406,10 @@ void doImage() {
 void setup() {
   Serial.begin(115200);
   delay(1000);
+
+  //shutdown WiFi completely
+  WiFi.disconnect(true);
+  WiFi.mode(WIFI_OFF);
 
   //Print the wakeup reason for ESP32
   print_wakeup_reason();
