@@ -41,3 +41,6 @@ fp-info-cache
 # Temp gerber directories
 **/hardware/v1.*/gerbers/
 **/hardware/v1.*/gerber/
+
+# Arduino debugging
+**/code/*/.theia/*
