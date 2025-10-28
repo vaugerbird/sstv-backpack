@@ -53,7 +53,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
     * The color of the top and bottom text can be changed with the definitions in lines 22-29. 
 
 5. Uncomment line 19 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
-6. **UPGRADE** : set 1=high or 0=low properly at line 347 to reflect your CAPT_BTN wiring (GND or +3.3V)
+6. **UPGRADE** : set 1=high or 0=low properly at line 437 to reflect your CAPT_BTN wiring (GND or +3.3V)
 
 5. Change the text options on lines 24 and 25 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
 6. **UPGRADE** : comment out the #define USE_FLASH if you don't want this function (high intensity white led on when framegrabbing)
