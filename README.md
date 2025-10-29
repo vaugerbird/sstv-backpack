@@ -21,9 +21,9 @@ I currently have 2 hardware revisions available, with a 3rd planned:
     * Pogo pins for power will be mounted on the board 
 
 ## Assembly Instructions
-1. Upload your desired [Gerber](./hardware/gerbers/) file to your desired PCB manufacturer. I used OSHPark, but JLCPCB or PCBWay are good manufacturers too.
+1. Upload your desired [Gerber](./hardware/gerbers/) file to your favorite PCB manufacturer. I recommend OSHPark for US-made, decent priced small-batch PCBs. JLCPCB or PCBWay are both great for cheap, high quality PCBs, if you don't mind waiting.
 
-2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack.csv) or [v1.1](./hardware/v1.1/sstv-backpack.csv) from your favorite parts supplier.
+2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack-v1.0.1.csv) or [v1.1](./hardware/v1.1/sstv-backpack-v1.1.csv) from your favorite parts supplier.
 
 3. Once all parts arrive, assemble the board. There isn't much of a technique to it, just start with the lowest profile parts first like the diodes, resistors, and chips, and work your way up.
 
