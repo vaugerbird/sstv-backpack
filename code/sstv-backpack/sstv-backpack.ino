@@ -34,8 +34,8 @@ bool capt_frame = false;
 
 int start = 0;
 
-String overlayTextTop = "W7PBC";    // Upper left, white
-String overlayTextBottom = "TESTING"; // Lower right, black
+String overlayTextTop = "CALLSIGN_HERE";    // Upper left
+String overlayTextBottom = "SUBTEXT_HERE"; // Lower right
 
 volatile uint32_t FTW = FTOFTW * 1000;
 volatile uint32_t PCW = 0;

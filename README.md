@@ -49,10 +49,10 @@ https://dl.espressif.com/dl/package_esp32_index.json
 
 3. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
 
-4. Change the text options on lines 36 and 37 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
-    * The color of the top and bottom text can be changed with the definitions in lines 22-29. 
+4. Change the text options on lines 37 and 38 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
+    * The color of the top and bottom text can be changed with the definitions in lines 24-31. 
 
-5. Uncomment line 19 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
+5. Uncomment line 21 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
 
 6. At line 447, set `1 = HIGH` or `0 = LOW` properly reflect your CAPT_BTN wiring (GND or +3.3V)
 
