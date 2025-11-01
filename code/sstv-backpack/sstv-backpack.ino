@@ -34,8 +34,8 @@ bool capt_frame = false;
 
 int start = 0;
 
-String overlayTextTop = "CALLSIGN HERE";    // Upper left, white
-String overlayTextBottom = "SUBTEXT HERE"; // Lower right, black
+String overlayTextTop = "CALLSIGN_HERE";    // Upper left
+String overlayTextBottom = "SUBTEXT_HERE"; // Lower right
 
 volatile uint32_t FTW = FTOFTW * 1000;
 volatile uint32_t PCW = 0;
@@ -436,16 +436,25 @@ void setup() {
   
     xTaskCreatePinnedToCore(sampleHandler, "IN", 4096, NULL, 1, &sampleHandlerHandle, 0);
     vTaskSuspend(sampleHandlerHandle);
+    tone(BUZZER_PIN, 500, 100);
+    tone(BUZZER_PIN, 440, 100);
     doImage();
+    tone(BUZZER_PIN, 440, 100);
+    tone(BUZZER_PIN, 480, 100);
+    tone(BUZZER_PIN, 500, 100);
     capt_frame = false;
   }
 
-  esp_sleep_enable_ext0_wakeup(CAPT_BTN, 1);  //1 = High, 0 = Low
+  esp_sleep_enable_ext0_wakeup(CAPT_BTN, 0);  //1 = High, 0 = Low
   // Configure pullup/downs via RTCIO to tie wakeup pins to inactive level during deepsleep.
   // EXT0 resides in the same power domain (RTC_PERIPH) as the RTC IO pullup/downs.
   // No need to keep that power domain explicitly, unlike EXT1.
-  rtc_gpio_pullup_dis(CAPT_BTN);
-  rtc_gpio_pulldown_en(CAPT_BTN);
+
+  //rtc_gpio_pullup_dis(CAPT_BTN); //Uncomment these 2 lines for pull-down resistor, comment for pull-up
+  //rtc_gpio_pulldown_en(CAPT_BTN);
+
+  rtc_gpio_pullup_en(CAPT_BTN); //Comment these 2 lines for pull-down resistor, uncomment for pull-up
+  rtc_gpio_pulldown_dis(CAPT_BTN);
   
   //Go to sleep now
   Serial.println("Going to sleep now");

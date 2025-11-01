@@ -21,9 +21,9 @@ I currently have 2 hardware revisions available, with a 3rd planned:
     * Pogo pins for power will be mounted on the board 
 
 ## Assembly Instructions
-1. Upload your desired [Gerber](./hardware/gerbers/) file to your desired PCB manufacturer. I used OSHPark, but JLCPCB or PCBWay are good manufacturers too.
+1. Upload your desired [Gerber](./hardware/gerbers/) file to your favorite PCB manufacturer. I recommend OSHPark for US-made, decent priced small-batch PCBs. JLCPCB or PCBWay are both great for cheap, high quality PCBs, if you don't mind waiting.
 
-2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack.csv) or [v1.1](./hardware/v1.1/sstv-backpack.csv) from your favorite parts supplier.
+2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack-v1.0.1.csv) or [v1.1](./hardware/v1.1/sstv-backpack-v1.1.csv) from your favorite parts supplier.
 
 3. Once all parts arrive, assemble the board. There isn't much of a technique to it, just start with the lowest profile parts first like the diodes, resistors, and chips, and work your way up.
 
@@ -49,26 +49,29 @@ https://dl.espressif.com/dl/package_esp32_index.json
 
 3. Set the board model to "AI Thinker ESP32-CAM" and select the appropriate COM port.
 
-4. Change the text options on lines 36 and 37 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
-    * The color of the top and bottom text can be changed with the definitions in lines 22-29. 
+4. Change the text options on lines 37 and 38 of [sstv-backpack.ino](./code/sstv-backpack.ino) to reflect your callsign and desired splash text.
+    * The color of the top and bottom text can be changed with the definitions in lines 24-31. 
 
-5. Uncomment line 19 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
-6. **UPGRADE** : set 1=high or 0=low properly at line 437 to reflect your CAPT_BTN wiring (GND or +3.3V)
+5. Uncomment line 21 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
 
-6. Inside "camera.h" file you can choose between two profiles, DAYLIGHT and HOME. Feel free to modify settings to best suit your case. 
+6. At line 447, set `1 = HIGH` or `0 = LOW` properly reflect your CAPT_BTN wiring (GND or +3.3V)
+
+7. Between line 452-456, choose the correct button pull-up/pull-down configuration. The button is set to pull-up by default to mirror the PCBs. (Button connects to GND when pressed)
+
+8. Inside "camera.h" file you can choose between two profiles, DAYLIGHT and HOME. Feel free to modify settings to best suit your case. 
 	* Notes from IU5HKU:
 		* Keep in mind that this cheap sensor struggles a lot in poor light scenarios, so don't expect a picture like your Fujifilm camera.
 		* A quick search online can lead you towards the proper settings values you need.
 
-7. All the board settings can be left alone except for selecting the correct COM port.
+9. All the board settings can be left alone except for selecting the correct COM port.
 
-8. Upload the code!
+10. Upload the code!
 
 ## Contributors
  A huge thank you to contributors to this project! I'm pretty bad with code so all help is greatly appreciated!
 
  * [IU5HKU / Marco](https://github.com/IU5HKU) - Updated the code to work with the newest version of the ESP32 board definition and improved the readability/useability of the code!
- * [IU5HKU / Marco](https://github.com/IU5HKU) - Updated the code to work with deepsleep/wakeup ESP32 funcs (maximize battery life).
+ * [IU5HKU / Marco](https://github.com/IU5HKU) - Updated the code to work with deepsleep/wakeup ESP32 functions (maximize battery life).
 
 ## Licensing
 * The [main program](./code/sstv-backpack.ino) and [supporting libraries](./code/) are licensed as CC BY-NC-SA 4.0 and are based on the program/libraries from [desafioinventor](https://www.instructables.com/SSTV-Capsule-V2-for-High-Altitude-Balloons/) on Instructables. 
