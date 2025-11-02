@@ -424,6 +424,7 @@ void setup() {
     pinMode(BUZZER_PIN, OUTPUT);
     digitalWrite(LED_FLASH, LOW);
     digitalWrite(LED_RED, HIGH);
+    rtc_gpio_hold_dis((gpio_num_t)PTT_PIN);
     digitalWrite(PTT_PIN, LOW); // PTT inactive at startup
   
     hw_timer_t *timer = NULL;
@@ -457,6 +458,7 @@ void setup() {
   
   //Go to sleep now
   Serial.println("Going to sleep now");
+  rtc_gpio_hold_en((gpio_num_t)PTT_PIN); // hold PTT_PIN state during deepsleep
   esp_deep_sleep_start();
   
 }
