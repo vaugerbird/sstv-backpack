@@ -10,8 +10,6 @@
     * Same complexity as v1.1, contains mostly SMD parts
 
 ## HW Issues
-* All versions:
-   * If the radio is powered on before the ESP32, the radio will transmit without input. This (most likely) has something to do with the ESP32's ESD protection on the I/O pins when power is not present, causing some sort of signal leakage between the base and collector of the NPN transistor. I have yet to find a solution for this.
 * v1.0(.1):
     * This board is incapable of flashing the ESP32 or using serial monitor as there is no UART-to-USB chip present. Flashing has to be done with a dedicated programmer and debugging is very difficult. 
 * v1.1:

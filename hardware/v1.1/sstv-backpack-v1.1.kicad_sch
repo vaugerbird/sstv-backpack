@@ -3441,7 +3441,7 @@
 		)
 	)
 	(rectangle
-		(start 163.83 109.22)
+		(start 163.83 110.49)
 		(end 269.24 156.21)
 		(stroke
 			(width 0.25)
@@ -3481,7 +3481,7 @@
 	)
 	(rectangle
 		(start 186.69 77.47)
-		(end 246.38 104.14)
+		(end 246.38 105.41)
 		(stroke
 			(width 0.25)
 			(type dash)
@@ -3565,6 +3565,12 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "38dd9802-670a-4bb3-b522-1fffbd98bc86")
+	)
+	(junction
+		(at 207.01 91.44)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3fbba3a6-ca1e-4e1a-8459-5de097f04f88")
 	)
 	(junction
 		(at 179.07 52.07)
@@ -3670,6 +3676,16 @@
 	)
 	(wire
 		(pts
+			(xy 207.01 91.44) (xy 208.28 91.44)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01d571ef-9b32-408e-8abe-8e218fb8e4a8")
+	)
+	(wire
+		(pts
 			(xy 69.85 119.38) (xy 72.39 119.38)
 		)
 		(stroke
@@ -3720,7 +3736,7 @@
 	)
 	(wire
 		(pts
-			(xy 203.2 91.44) (xy 208.28 91.44)
+			(xy 203.2 91.44) (xy 207.01 91.44)
 		)
 		(stroke
 			(width 0)
@@ -5105,6 +5121,73 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:R")
+		(at 207.01 95.25 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2cd9f538-3714-49e4-943a-28eed15b8fe4")
+		(property "Reference" "R6"
+			(at 204.47 93.472 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 203.962 97.028 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 208.788 95.25 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 207.01 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 207.01 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d05e0ce3-fd86-49c5-877c-13974103c314")
+		)
+		(pin "2"
+			(uuid "d93a6456-d43e-47d5-95e2-48cb2f1f7554")
+		)
+		(instances
+			(project "sstv-backpack-v1.1"
+				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
+					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "Device:C")
 		(at 72.39 138.43 0)
 		(mirror y)
@@ -6106,6 +6189,72 @@
 			(project ""
 				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
 					(reference "#PWR05")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 207.01 99.06 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "7f4b8aea-cf8c-4936-a4a0-5003cd9bf0f0")
+		(property "Reference" "#PWR08"
+			(at 207.01 105.41 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 207.01 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 207.01 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 207.01 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 207.01 99.06 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ab57a7be-da21-4591-a499-6551d02d5a50")
+		)
+		(instances
+			(project "sstv-backpack-v1.1"
+				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)

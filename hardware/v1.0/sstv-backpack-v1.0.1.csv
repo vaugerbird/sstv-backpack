@@ -2,7 +2,7 @@ Reference,Qty,Value,Part Number,Footprint,Notes
 BZ1,1,Buzzer,PS1240P02BT,Buzzer_Beeper:Buzzer_TDK_PS1240P02BT_D12.2mm_H6.5mm,
 "C1,C2",2,1uF,TAP105K020SCS,Capacitor_THT:C_Disc_D3.8mm_W2.6mm_P2.50mm,
 Q1,1,2N3904,2N3904,Package_TO_SOT_THT:TO-92_Inline,Make sure to order the straight leg version
-R1,1,10k,MFR-25FBF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal,
+"R1, R2",2,10k,MFR-25FBF52-10K,Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal,
 J1,1,Conn_01x03_Pin,Optional,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,
 J2,1,Conn_01x02_Pin,Optional,Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical,
 SW1,1,SW_Push,PTS125SM73SMTR21M LFS,,

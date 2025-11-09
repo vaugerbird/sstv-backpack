@@ -2189,7 +2189,7 @@
 	)
 	(rectangle
 		(start 190.5 93.98)
-		(end 250.19 120.65)
+		(end 250.19 123.19)
 		(stroke
 			(width 0.25)
 			(type dash)
@@ -2283,6 +2283,12 @@
 		(color 0 0 0 0)
 		(uuid "7139be3a-2738-4e61-97e7-ce246719ec59")
 	)
+	(junction
+		(at 210.82 107.95)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8a8fe767-1727-4d9a-bb8c-b1a76feca693")
+	)
 	(no_connect
 		(at 66.04 129.54)
 		(uuid "1e41b3e0-65a0-480a-960f-88c185fc7448")
@@ -2351,7 +2357,7 @@
 	)
 	(wire
 		(pts
-			(xy 207.01 107.95) (xy 212.09 107.95)
+			(xy 207.01 107.95) (xy 210.82 107.95)
 		)
 		(stroke
 			(width 0)
@@ -2368,6 +2374,16 @@
 			(type default)
 		)
 		(uuid "3a0a5831-6b1b-48de-a518-809c4bc1afe8")
+	)
+	(wire
+		(pts
+			(xy 210.82 107.95) (xy 212.09 107.95)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a6a16b2-9968-45ba-9494-af94fd6bde45")
 	)
 	(wire
 		(pts
@@ -2726,6 +2742,72 @@
 			(project "sstv-backpack"
 				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
 					(reference "#PWR07")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 210.82 115.57 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(fields_autoplaced yes)
+		(uuid "0e22cbd7-4ebf-4b15-9b49-d1579da7bad5")
+		(property "Reference" "#PWR08"
+			(at 210.82 121.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 210.82 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 210.82 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 210.82 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"GND\" , ground"
+			(at 210.82 115.57 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "42257527-3405-4948-8078-784733699f6d")
+		)
+		(instances
+			(project "sstv-backpack-v1.0.1"
+				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
+					(reference "#PWR08")
 					(unit 1)
 				)
 			)
@@ -3567,6 +3649,73 @@
 			(project ""
 				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
 					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Device:R")
+		(at 210.82 111.76 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "afd3e2d6-33a2-4566-8b8f-abb1b522df61")
+		(property "Reference" "R2"
+			(at 208.026 109.982 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 207.518 113.538 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Resistor_THT:R_Axial_DIN0207_L6.3mm_D2.5mm_P7.62mm_Horizontal"
+			(at 212.598 111.76 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 210.82 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Resistor"
+			(at 210.82 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e9aee075-fdea-422f-ab48-2318b542fee9")
+		)
+		(pin "2"
+			(uuid "6adc6828-ba6e-424d-b7d5-f181d309c5b5")
+		)
+		(instances
+			(project "sstv-backpack-v1.0.1"
+				(path "/29ea68c4-1664-4e2a-8c4b-cdbccd245911"
+					(reference "R2")
 					(unit 1)
 				)
 			)

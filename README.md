@@ -1,9 +1,21 @@
 # sstv-backpack
 ## A ESP32-CAM SSTV backpack for the Baofeng UV-5R and others!
 
-<img align="center" src="./img/radio.jpg" width="300">
+<img align="left" src="./img/radio.jpg" width="300">
 <img align="center" src="./img/sstv1.jpg" width="300">
 <img align="center" src="./img/sstv2.jpg" width="300">
+
+## Project Description
+### Turn your HT into a point-and-shoot camera!
+This project relies on using an ESP32 connected to a handheld transceiver to send SSTV images. Any combination of HT and ESP32-CAM can send a picture, but the hardware in this repository is specifically designed to work!
+
+To decode the images, another radio must be used and connected to any device that can run a decoder program. I personally use MMSSTV on my PC with a USB soundcard, or my phone running Robot36 and listening to the radio with the microphone. 
+
+Here's some questions I've been asked in the past:
+* **Why?**
+    * This is a term project that I created for my college ARC that I'm the president of! We are currently assembling v1.1 and we plan on using the completed projects to do a SSTV scavenger hunt. This consists of a list of things to take pictures of around campus, where the hunter will take a picture of the required object, send the image back to the control room (clubroom), and the point will be awarded to the hunter/team!
+* **How does this work?**
+    * In short, the ESP32-CAM captures a frame, converts the image into the appropriate encoded audio for SSTV, keys the PTT on the HT, and plays the audio through the microphone port. The specifics of the encoding process are somewhat black magic to me as I didn't create the underlying code, but as far as I understand, the encoding is done by applying a few math functions to the pixels stored in the framebuffer, and converted into audio.
 
 ## Hardware Revisions
 I currently have 2 hardware revisions available, with a 3rd planned: 
@@ -18,9 +30,10 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 3. v1.2 (WIP):
     * Switch to an mostly top-mounted SMD design, while still being hand-solderable
     * Retain all features of the v1.1 board
-    * Pogo pins for power will be mounted on the board 
+    * Maybe add battery charging circuitry?
 
 ## Assembly Instructions
+### Better (printable) instructions coming soon!
 1. Upload your desired [Gerber](./hardware/gerbers/) file to your favorite PCB manufacturer. I recommend OSHPark for US-made, decent priced small-batch PCBs. JLCPCB or PCBWay are both great for cheap, high quality PCBs, if you don't mind waiting.
 
 2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack-v1.0.1.csv) or [v1.1](./hardware/v1.1/sstv-backpack-v1.1.csv) from your favorite parts supplier.
@@ -54,7 +67,7 @@ https://dl.espressif.com/dl/package_esp32_index.json
 
 5. Uncomment line 21 ```#define USE_FLASH``` if you want to use the flash LED (Turns on a high intensity white LED on when framegrabbing).
 
-6. At line 447, set `1 = HIGH` or `0 = LOW` properly reflect your CAPT_BTN wiring (GND or +3.3V)
+6. At line 447, set `1 = HIGH` or `0 = LOW` properly reflect your CAPT_BTN wiring (GND for LOW, or +3.3V for HIGH)
 
 7. Between line 452-456, choose the correct button pull-up/pull-down configuration. The button is set to pull-up by default to mirror the PCBs. (Button connects to GND when pressed)
 
@@ -76,5 +89,5 @@ https://dl.espressif.com/dl/package_esp32_index.json
 ## Licensing
 * The [main program](./code/sstv-backpack.ino) and [supporting libraries](./code/) are licensed as CC BY-NC-SA 4.0 and are based on the program/libraries from [desafioinventor](https://www.instructables.com/SSTV-Capsule-V2-for-High-Altitude-Balloons/) on Instructables. 
 * The case design is roughly based on [this design](https://www.thingiverse.com/thing:5270394) by HStakhiv on [Thingiverse](https://www.thingiverse.com/hstakhiv/designs). The original is licensed under CC BY. My case design falls under the GPL-2.0 license.
-* The remaining contents of this repository are designed by myself, and are licensed under the GPL-2.0 license.
+* The remaining contents of this repository are designed by myself (and contributors!), and are licensed under the GPL-2.0 license.
 
