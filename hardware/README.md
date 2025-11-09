@@ -11,9 +11,9 @@
 
 ## HW Issues
 * v1.0(.1):
-    * This board is incapable of flashing the ESP32 or using serial monitor as there is no UART-to-USB chip present. Flashing has to be done with a dedicated programmer and debugging is very difficult. 
-* v1.1:
-    * No CC resistors are present (or really possible) for the USB-C port. This is due to physical restraints of through-hole components, and means the board will not receive power from a USB-C to USB-C cable.
-    * Powering the board from the radio and connecting USB data is possible, and won't break anything as power is diode-protected, but is not recommended.
+    * This board is incapable of flashing the ESP32 or using serial monitor as there is no USB-to-UART chip present. Flashing has to be done with a dedicated programmer and debugging is very difficult. 
+* v1.1.0:
+    * ~~No CC resistors are present (or really possible) for the USB-C port. This is due to physical restraints of through-hole components, and means the board will not receive power from a USB-C to USB-C cable.~~ Fixed with v1.1.1
+    * ~~Powering the board from the radio and connecting USB data is possible, and won't break anything as power is diode-protected, but is not recommended.~~ Fixed with v1.1.1
 * v1.2:
     * No issues have been found; this revision of the board has not yet been tested.
