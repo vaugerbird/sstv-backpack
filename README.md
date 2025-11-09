@@ -7,7 +7,7 @@
 
 ## Project Description
 ### Turn your HT into a point-and-shoot camera!
-This project relies on using an ESP32 connected to a handheld transceiver to send SSTV images. Any combination of HT and ESP32-CAM can send a picture, but the hardware in this repository is specifically designed to work!
+This project relies on using an ESP32 connected to a handheld transceiver to send SSTV (Slow Scan TeleVision) images. Any combination of HT and ESP32-CAM can send a picture, but the hardware in this repository is specifically designed to work!
 
 To decode the images, another radio must be used and connected to any device that can run a decoder program. I personally use MMSSTV on my PC with a USB soundcard, or my phone running Robot36 and listening to the radio with the microphone. 
 
@@ -24,9 +24,12 @@ I currently have 2 hardware revisions available, with a 3rd planned:
     * Simplest version with only a voltage regulator circuit, PTT circuit, 2 switches, a buzzer, and the ESP32-CAM
     * Requires external board for flashing and a serial monitor
 2. v1.1: 
-    * Still mostly through-hole and hand-solderable, albeit with some fine-pitch components like the FTDI chip
+    * 2 sub-versions:
+        * v1.1.1: CH340C version, uses the CH340C for USB-to-UART and has CC resistors for full USB type C compatibility.
+        * v1.1.0: FT231XS version, uses the FTDI FT231XS for USB-to-UART and does **not** have CC resistors. I don't recommend this version for many reasons, unless it is difficult to get the CH340C. 
+    * Still mostly through-hole and hand-solderable, albeit with some fine-pitch components like the USB-to-UART chip.
     * Retains all the same functionality of v1.0, but adds an FTDI USB-to-Serial chip for flashing and a serial monitor.
-    * The board is quite cramped and may be hard to work with
+    * The board is quite cramped and may be hard to work with.
 3. v1.2 (WIP):
     * Switch to an mostly top-mounted SMD design, while still being hand-solderable
     * Retain all features of the v1.1 board
@@ -36,7 +39,7 @@ I currently have 2 hardware revisions available, with a 3rd planned:
 ### Better (printable) instructions coming soon!
 1. Upload your desired [Gerber](./hardware/gerbers/) file to your favorite PCB manufacturer. I recommend OSHPark for US-made, decent priced small-batch PCBs. JLCPCB or PCBWay are both great for cheap, high quality PCBs, if you don't mind waiting.
 
-2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack-v1.0.1.csv) or [v1.1](./hardware/v1.1/sstv-backpack-v1.1.csv) from your favorite parts supplier.
+2. Order the required parts using the proper BOM for [v1.0](./hardware/v1.0/sstv-backpack-v1.0.1.csv) or [v1.1](./hardware/v1.1/sstv-backpack-v1.1.1.csv) from your favorite parts supplier.
 
 3. Once all parts arrive, assemble the board. There isn't much of a technique to it, just start with the lowest profile parts first like the diodes, resistors, and chips, and work your way up.
 
